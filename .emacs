@@ -1,13 +1,10 @@
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
 
-(eval-after-load "quail/latin-ltx"
-  '(mapc (lambda (pair)
-           (quail-defrule (car pair) (cadr pair) "TeX"))
-	 '( ("\\bb" "𝔹") ("\\bl" "𝕃") ("\\bs" "𝕊")
-	    ("\\notsign" "¬")
-	    ("\\bt" "𝕋") ("\\bv" "𝕍") ("\\cv" " O ")
-	    ("\\comp" "∘") ("\\m" "⟼") ("\\om" "ω"))))
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -21,14 +18,28 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
+ '(package-selected-packages (quote (haskell-mode auctex)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 143 :width normal)))))
+ '(default ((t (:family "DejaVu Sans" :foundry "outline" :slant normal :weight normal :height 143 :width normal)))))
 
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+
+(eval-after-load "quail/latin-ltx"
+  '(mapc (lambda (pair)
+           (quail-defrule (car pair) (cadr pair) "TeX"))
+	 '( ("\\bb" "𝔹") ("\\bl" "𝕃") ("\\bs" "𝕊")
+	    ("\\lras" "⇆") ("\\sr" "ℛ")
+	    ("\\bt" "𝕋") ("\\bv" "𝕍") ("\\cv" " O ")
+	    ("\\comp" "∘") ("\\m" "⟼") ("\\om" "ω"))))
+
+
+ 
 (require 'package)
 
 (package-initialize)
@@ -48,3 +59,5 @@
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 (put 'downcase-region 'disabled nil)
+
+(load-file "c:\\Coq\\ProofGeneral\\generic\\proof-site.el")
