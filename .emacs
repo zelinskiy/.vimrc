@@ -22,13 +22,14 @@
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/")
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
+ '(package-selected-packages (quote (ag haskell-mode web-mode purescript-mode)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 143 :width normal)))))
+ '(default ((t (:family "DejaVu Sans" :foundry "PfEd" :slant normal :weight normal :height 158 :width normal)))))
 
 (require 'package)
 
@@ -58,9 +59,9 @@
 
 (setq ring-bell-function 'ignore)
 
-(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
-(require 'purescript-mode-autoloads)
-(add-to-list 'Info-default-directory-list "~/lib/emacs/purescript-mode/")
+;;(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
+;;(require 'purescript-mode-autoloads)
+;;(add-to-list 'Info-default-directory-list "~/lib/emacs/purescript-mode/")
 
 (setq backup-directory-alist
           `((".*" . ,temporary-file-directory)))
@@ -79,3 +80,6 @@
 (setq web-mode-indent-style 4)
 
 (global-set-key (kbd "C-x M-f") 'backward-char)
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
