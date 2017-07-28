@@ -20,7 +20,7 @@
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
   boot.loader.grub.extraEntries = ''
     menuentry "Windows" {
-      chainloader (hd0,1)+1
+      chainloader (hd0,2)+1
     }
   '';
 
@@ -56,6 +56,7 @@
     evince
     dmenu
     gmrun
+    unclutter
   ];
 
   # List services that you want to enable:
@@ -74,17 +75,35 @@
 
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us, ru(winkeys)";
-  services.xserver.xkbOptions = "eurosign:e, grp:ctrl_shift_toggle";
-  services.xserver.autorun = true;
-  services.xserver.xkbVariant = "winkeys";
-
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.windowManager.xmonad.enable = true;
-  services.xserver.displayManager.sessionCommands = "${pkgs.feh}/bin/feh --bg-center ~/dotfiles/wp.png &";
+  services.xserver = {
+    enable = true;
+    layout = "us, ru(winkeys)";
+    xkbOptions = "eurosign:e, grp:ctrl_shift_toggle";
+    autorun = true;
+    xkbVariant = "winkeys";
+    #displayManager.sddm.enable = true;
+    windowManager.xmonad = { 
+      enable = true;
+      enableContribAndExtras = true;
+    };
+    #displayManager.sddm.autoLogin = {
+    #  enable = true;
+    #  user = "nik";
+    #};
+    #displayManager.sddm.extraConfig = ''
+    #  [Theme]
+    #  FacesDir=/home/nik/faces/
+    #  [Autologin]
+    #  Session=xmonad.desktop
+    #'';    
+  };
+  
+ 
+  services.xserver.displayManager.sessionCommands = ''
+    xrandr --output DVI-I-1 --primary --mode 1920x1080 --auto --output VGA-1 --mode 1280x1024 --left-of DVI-I-1 --auto &
+    ${pkgs.feh}/bin/feh --bg-center ~/dotfiles/wp.png &
+    unclutter -idle 1 &    
+  '';
 
   services.xserver.libinput = {
     enable = true;
