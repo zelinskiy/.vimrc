@@ -57,7 +57,6 @@
     dmenu
     gmrun
     unclutter
-    lynx
   ];
 
   # List services that you want to enable:
@@ -82,18 +81,18 @@
     xkbOptions = "eurosign:e, grp:ctrl_shift_toggle";
     autorun = true;
     xkbVariant = "winkeys";
-    displayManager.sddm.enable = true;
+    #displayManager.sddm.enable = true;
     windowManager.xmonad.enable = true;
-    displayManager.sddm.autoLogin = {
-      enable = true;
-      user = "nik";
-    };
-    displayManager.sddm.extraConfig = ''
-      [Theme]
-      FacesDir=/home/nik/faces/
-      [Autologin]
-      Session=xmonad.desktop
-    '';
+    #displayManager.sddm.autoLogin = {
+    #  enable = true;
+    #  user = "nik";
+    #};
+    #displayManager.sddm.extraConfig = ''
+    #  [Theme]
+    #  FacesDir=/home/nik/faces/
+    #  [Autologin]
+    #  Session=xmonad.desktop
+    #'';
     
   };
   
