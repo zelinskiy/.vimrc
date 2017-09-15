@@ -1,6 +1,10 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
+(add-to-list 'load-path "~/.emacs.d/neotree")
+(require 'neotree)
+(global-set-key (kbd "C-d") 'neotree-toggle)
+      
 (eval-after-load "quail/latin-ltx"
   '(mapc (lambda (pair)
            (quail-defrule (car pair) (cadr pair) "TeX"))
@@ -22,7 +26,9 @@
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/")
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
- '(package-selected-packages (quote (ag haskell-mode web-mode purescript-mode)))
+ '(package-selected-packages
+   (quote
+    (unicode-fonts flycheck f dash-functional dash company ag haskell-mode web-mode purescript-mode)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -57,6 +63,8 @@
 ;; Open .v files with Proof General's Coq mode
 (load "~/.emacs.d/lisp/PG/generic/proof-site")
 
+(customize-set-variable 'proof-three-window-mode-policy 'hybrid) 
+
 (setq ring-bell-function 'ignore)
 
 ;;(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
@@ -83,3 +91,26 @@
 
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
+
+
+;; You need to modify the following two lines:
+(setq lean-rootdir ".nix-profile")
+(setq lean-emacs-path ".nix-profile/share/emacs/site-lisp/lean")
+
+(setq lean-mode-required-packages '(company dash dash-functional f
+                               flycheck let-alist s seq))
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+(let ((need-to-refresh t))
+  (dolist (p lean-mode-required-packages)
+    (when (not (package-installed-p p))
+      (when need-to-refresh
+        (package-refresh-contents)
+        (setq need-to-refresh nil))
+      (package-install p))))
+
+(setq load-path (cons lean-emacs-path load-path))
+
+(require 'lean-mode)
