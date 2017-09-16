@@ -18,6 +18,10 @@ myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 myKeys = [ 
     -- other additional keys 
     ] ++ 
+    [ ((0 , 0x1008FF11), spawn "amixer set Master 2-"),
+      ((0 , 0x1008FF13), spawn "amixer set Master 2+"),
+      ((0 , 0x1008FF12), spawn "amixer set Master toggle")
+    ] ++
     [((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
