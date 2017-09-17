@@ -1,6 +1,10 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
+(add-to-list 'load-path "~/.emacs.d/neotree")
+(require 'neotree)
+(global-set-key (kbd "C-d") 'neotree-toggle)
+      
 (eval-after-load "quail/latin-ltx"
   '(mapc (lambda (pair)
            (quail-defrule (car pair) (cadr pair) "TeX"))
@@ -27,7 +31,7 @@
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (arduino-mode ag haskell-mode web-mode purescript-mode)))
+    (arduino-mode unicode-fonts flycheck f dash-functional dash company ag haskell-mode web-mode purescript-mode))) 
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -91,7 +95,31 @@
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
 
+<<<<<<< HEAD
 
 
 (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
 (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
+=======
+;; You need to modify the following two lines:
+(setq lean-rootdir ".nix-profile")
+(setq lean-emacs-path ".nix-profile/share/emacs/site-lisp/lean")
+
+(setq lean-mode-required-packages '(company dash dash-functional f
+                               flycheck let-alist s seq))
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+(let ((need-to-refresh t))
+  (dolist (p lean-mode-required-packages)
+    (when (not (package-installed-p p))
+      (when need-to-refresh
+        (package-refresh-contents)
+        (setq need-to-refresh nil))
+      (package-install p))))
+
+(setq load-path (cons lean-emacs-path load-path))
+
+(require 'lean-mode)
+>>>>>>> ec2bdd6f2e1b2afda78424378f3aa165adbc41e8

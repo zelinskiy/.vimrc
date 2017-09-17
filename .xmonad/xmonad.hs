@@ -21,6 +21,7 @@ myWorkspaces = ["2","1","3","4","5","6","7","8","9"]
  
 myKeys = [ 
     -- other additional keys 
+<<<<<<< HEAD
     ] ++
     [ {-((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock"),-}
       ((0 , 0x1008FF11), spawn "amixer set Master 2-"),
@@ -28,6 +29,14 @@ myKeys = [
       ((0 , 0x1008FF12), spawn "amixer set Master toggle")
     ] ++
     [((m .|. mod4Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+=======
+    ] ++ 
+    [ ((0 , 0x1008FF11), spawn "amixer set Master 2-"),
+      ((0 , 0x1008FF13), spawn "amixer set Master 2+"),
+      ((0 , 0x1008FF12), spawn "amixer set Master toggle")
+    ] ++
+    [((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+>>>>>>> ec2bdd6f2e1b2afda78424378f3aa165adbc41e8
         | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
