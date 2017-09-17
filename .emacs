@@ -25,7 +25,9 @@
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/")
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
- '(package-selected-packages (quote (ag haskell-mode web-mode purescript-mode)))
+ '(package-selected-packages
+   (quote
+    (arduino-mode ag haskell-mode web-mode purescript-mode)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -62,7 +64,7 @@
 
 (customize-set-variable 'proof-three-window-mode-policy 'hybrid) 
 
-(Setq ring-bell-function 'ignore)
+(setq ring-bell-function 'ignore)
 
 ;;(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
 ;;(require 'purescript-mode-autoloads)
@@ -89,3 +91,7 @@
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
 
+
+
+(setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
+(autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
