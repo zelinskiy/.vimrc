@@ -1,0 +1,9 @@
+templates:
+  params:
+    author-email: zelinskiy1917@gmail.com
+    author-name: zelinskiy
+    copyright: CC BY-NC-SA
+    github-username: zelinskiy
+system-ghc: true
+
+    
