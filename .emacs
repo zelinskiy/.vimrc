@@ -1,7 +1,8 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
-(global-set-key (kbd "C-d") 'neotree-toggle)
+(global-set-key (kbd "\C-d") 'neotree-toggle)
+(global-set-key (kbd "<f12>") 'neotree-toggle)
       
 (eval-after-load "quail/latin-ltx"
   '(mapc (lambda (pair)
@@ -66,14 +67,14 @@
 
 (setq ring-bell-function 'ignore)
 
-;(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
-;(require 'purescript-mode-autoloads)
-;;(add-to-list 'Info-default-directory-list "~/lib/emacs/purescript-mode/")
+
 (require 'purescript-mode)
 (require 'psc-ide)
 (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
 (add-hook 'purescript-mode-hook 'psc-ide-mode)
 (add-hook 'purescript-mode-hook 'inferior-psci-mode)
+
+(define-key psc-ide-mode-map (kbd "<f12>") 'neotree-toggle)
 
 (setq backup-directory-alist
           `((".*" . ,temporary-file-directory)))
@@ -102,5 +103,3 @@
 
 (setq c-default-style "k&r")
 (desktop-save-mode 1)
-
-
