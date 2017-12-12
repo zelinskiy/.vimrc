@@ -1,8 +1,6 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 
-(add-to-list 'load-path "~/.emacs.d/neotree")
-(require 'neotree)
 (global-set-key (kbd "C-d") 'neotree-toggle)
       
 (eval-after-load "quail/latin-ltx"
@@ -31,20 +29,18 @@
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (arduino-mode unicode-fonts flycheck f dash-functional dash company ag haskell-mode web-mode purescript-mode))) 
+    (flycheck-purescript psci psc-ide ensime neotree arduino-mode unicode-fonts flycheck f dash-functional dash company ag haskell-mode web-mode purescript-mode)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans" :foundry "PfEd" :slant normal :weight normal :height 158 :width normal)))))
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 158 :width normal)))))
 
 (require 'package)
 
 (package-initialize)
-
-
 
 (eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
@@ -70,9 +66,14 @@
 
 (setq ring-bell-function 'ignore)
 
-;;(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
-;;(require 'purescript-mode-autoloads)
+;(add-to-list 'load-path "~/lib/emacs/purescript-mode/")
+;(require 'purescript-mode-autoloads)
 ;;(add-to-list 'Info-default-directory-list "~/lib/emacs/purescript-mode/")
+(require 'purescript-mode)
+(require 'psc-ide)
+(add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
+(add-hook 'purescript-mode-hook 'psc-ide-mode)
+(add-hook 'purescript-mode-hook 'inferior-psci-mode)
 
 (setq backup-directory-alist
           `((".*" . ,temporary-file-directory)))
@@ -95,31 +96,11 @@
 (load-file (let ((coding-system-for-read 'utf-8))
                 (shell-command-to-string "agda-mode locate")))
 
-<<<<<<< HEAD
-
 
 (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
 (autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
-=======
-;; You need to modify the following two lines:
-(setq lean-rootdir ".nix-profile")
-(setq lean-emacs-path ".nix-profile/share/emacs/site-lisp/lean")
 
-(setq lean-mode-required-packages '(company dash dash-functional f
-                               flycheck let-alist s seq))
+(setq c-default-style "k&r")
+(desktop-save-mode 1)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(package-initialize)
-(let ((need-to-refresh t))
-  (dolist (p lean-mode-required-packages)
-    (when (not (package-installed-p p))
-      (when need-to-refresh
-        (package-refresh-contents)
-        (setq need-to-refresh nil))
-      (package-install p))))
 
-(setq load-path (cons lean-emacs-path load-path))
-
-(require 'lean-mode)
->>>>>>> ec2bdd6f2e1b2afda78424378f3aa165adbc41e8
