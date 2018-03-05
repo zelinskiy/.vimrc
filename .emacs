@@ -15,10 +15,7 @@
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(agda2-program-args
-   (quote
-    ("--include-path=/nix/store/8ff6y42rc5yn0fwg62g2f7l2y80rpwy6-agda-stdlib-0.13/share/agda/")))
+ ;; If there is more than one, they won't work right. 
  '(cua-mode t nil (cua-base))
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
@@ -30,7 +27,7 @@
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (flycheck-purescript psci psc-ide ensime neotree arduino-mode unicode-fonts flycheck f dash-functional dash company ag haskell-mode web-mode purescript-mode)))
+    (neotree arduino-mode flycheck f dash-functional dash company ag haskell-mode)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -66,40 +63,17 @@
 (customize-set-variable 'proof-three-window-mode-policy 'hybrid) 
 
 (setq ring-bell-function 'ignore)
-
-
-(require 'purescript-mode)
-(require 'psc-ide)
-(add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
-(add-hook 'purescript-mode-hook 'psc-ide-mode)
-(add-hook 'purescript-mode-hook 'inferior-psci-mode)
-
-(define-key psc-ide-mode-map (kbd "<f12>") 'neotree-toggle)
-
 (setq backup-directory-alist
           `((".*" . ,temporary-file-directory)))
     (setq auto-save-file-name-transforms
           `((".*" ,temporary-file-directory t)))
 
-(require 'web-mode)
-
-(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-(setq web-mode-engines-alist
-  '(("php"    . "\\.phtml\\'")
-    ("blade"  . "\\.blade\\."))
-  )
-
-(setq web-mode-code-indent-offset 4)
-(setq web-mode-indent-style 4)
-
 (global-set-key (kbd "C-x M-f") 'backward-char)
 
 (load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
+                (shell-command-to-string "~/.cabal/bin/agda-mode locate")))
 
-
-(setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
-(autoload 'arduino-mode "arduino-mode" "Arduino editing mode." t)
 
 (setq c-default-style "k&r")
 (desktop-save-mode 1)
+
