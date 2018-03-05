@@ -10,7 +10,7 @@ main = xmonad $ def {
     focusedBorderColor = "#008000"
   , normalBorderColor = "#161616"
   , focusFollowsMouse = False
-  , borderWidth = 1
+  , borderWidth = 3
   , terminal = "xterm"
   , workspaces = myWorkspaces
   , modMask = mod4Mask
@@ -26,7 +26,7 @@ myKeys = [
       ((0 , 0x1008FF13), spawn "amixer set Master 2+"),
       ((0 , 0x1008FF12), spawn "amixer set Master toggle")
     ] ++
-    [((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    [((m .|. mod4Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
