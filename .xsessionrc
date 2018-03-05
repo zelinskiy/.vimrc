@@ -1,0 +1,6 @@
+xrandr --output DVI-I-1 --primary --mode 1920x1080 --auto --output VGA-1 --mode 1280x1024 --left-of DVI-I-1 --auto &
+export WINDOW_MANAGER=xmonad
+xrdb -merge .Xresources
+feh --bg-center ~/wp.png
+unclutter -idle -2 &
+exec xmonad
